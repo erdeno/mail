@@ -1,0 +1,51 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>{{ request.user.email }}</h2>
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <button class="nav-link active" id="inbox">Inbox</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="compose">Compose</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="sent">Sent</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="archive">Archived</button>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+      </li>
+    </ul>
+    <br>
+
+    <h3 id="email-heading"></h3>
+    <div id="alert"></div>
+    <div id="email-detail"></div>
+    <div id="emails-view"></div>
+
+    <div id="compose-view">
+        <h3>New Email</h3>
+        <form id="compose-form">
+            <div class="form-group">
+                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+                To: <input id="compose-recipients" class="form-control">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="compose-subject" placeholder="Subject">
+            </div>
+            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+            <input type="submit" class="btn btn-primary" id="send-mail" value='Send'/>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
